@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8, #fff5f5);
+            color: #5a3e36;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+        
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.7);
+            font-size: 20px;
+            animation: float 15s linear infinite;
+            opacity: 0;
+            top: -50px;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(212, 106, 106, 0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, #ffc3a0, #ffafbd, #ffc3a0);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.2;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #d46a6a;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .btn-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 106, 106, 0.85);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+        }
+        
+        .btn-icon:hover {
+            background: #d46a6a;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message-container {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            color: #5a3e36;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(255, 182, 193, 0.3) 60%);
+            font-weight: 500;
+            padding: 0 5px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .btn-main {
+            height: 60px;
+            background: rgba(212, 106, 106, 0.85);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(212, 106, 106, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .btn-main:hover {
+            background: #d46a6a;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 106, 106, 0.4);
+        }
+        
+        .btn-main:active {
+            transform: translateY(0);
+        }
+        
+        .btn-main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-main:hover::before {
+            left: 100%;
+        }
+        
+        .btn-main i {
+            font-size: 1.4rem;
+        }
+        
+        .personalized {
+            background: linear-gradient(45deg, #d46a6a, #e68a8a);
+        }
+        
+        .response-message {
+            margin-top: 30px;
+            padding: 15px 25px;
+            background: rgba(255, 182, 193, 0.15);
+            border-radius: 15px;
+            display: inline-block;
+            max-width: 80%;
+            animation: fadeIn 0.8s ease-out;
+            font-style: italic;
+            color: #d46a6a;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #d46a6a;
+            font-style: italic;
+            animation: fadeIn 2s ease-out;
+            width: 100%;
+            max-width: 800px;
+            margin-top: auto;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+                padding: 0;
+            }
+            
+            .btn-main {
+                height: 55px;
+                font-size: 1.1rem;
+            }
+            
+            .btn-icon {
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .container {
+                padding: 25px 15px;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .btn-main {
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .btn-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Hidden class for translation toggle */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container">
+        <header>
+            <h1 id="headerText">Hi Baskar😇, I Made This for You</h1>
+        </header>
+        
+        <div class="message-container">
+            <div id="englishMessage">
+                <p class="message">
+                    <span class="highlight">Please don't share this with anyone—not even your mom.</span> It's something personal I wanted to share with you.
+                </p>
+            </div>
+            
+            <div id="hindiMessage" class="hidden">
+                <p class="message">
+                    <span class="highlight">कृपया इसे किसी के साथ साझा न करें—यहां तक कि अपनी माँ के साथ भी नहीं।</span> यह कुछ व्यक्तिगत है जो मैं आपके साथ साझा करना चाहता था।
+                </p>
+            </div>
+            
+            <div class="buttons-container">
+                <button id="promiseBtn" class="btn-main">
+                    <i class="fas fa-lock"></i>
+                    <span id="promiseText">I will not tell anyone</span>
+                </button>
+                
+                <button id="personalBtn" class="btn-main personalized">
+                    <i class="fas fa-heart"></i>
+                    <span id="nameText"> I will tell </span>
+                </button>
+            </div>
+            
+            <div id="responseMessage" class="response-message hidden">
+                Take your time to decide. I'll be here whenever you're ready. I request you to keep everything between us.
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p id="footerText">This website was created with admiration.🥹</p>
+    </footer>
+    
+    <!-- Control buttons fixed at bottom right -->
+    <div class="controls">
+        <button id="musicBtn" class="btn-icon" title="Play/Pause Music">
+            <i class="fas fa-music"></i>
+        </button>
+        <button id="translateBtn" class="btn-icon" title="Translate to Hindi">
+            <i class="fas fa-language"></i>
+        </button>
+    </div>
+    
+    <!-- Background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="index_UfOmiYRt.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                const opacity = Math.random() * 0.5 + 0.3;
+                
+                heart.style.left = `${left}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDuration = `${animationDuration}s`;
+                heart.style.animationDelay = `${animationDelay}s`;
+                heart.style.opacity = opacity;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Music control
+        const musicBtn = document.getElementById('musicBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                backgroundMusic.play().catch(e => {
+                    console.log("Audio play failed:", e);
+                    alert("Please click 'OK' to allow audio playback. Some browsers require user interaction for audio to play.");
+                });
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // Translation data
+        const translations = {
+            headerText: {
+                english: "Hi Baskar😇, I Made This for You",
+                hindi: "Hi Baskar😇, मैंने यह आपके लिए बनाया है"
+            },
+            promiseText: {
+                english: "I will not tell anyone",
+                hindi: "मैं किसी को नहीं बताऊँगी"
+            },
+            nameText: {
+                english: "I Will Tell",
+                hindi: "me bata dungi"
+            },
+            footerText: {
+                english: "This page was created with care and admiration.",
+                hindi: "यह पृष्ठ देखभाल और प्रशंसा के साथ बनाया गया था।"
+            },
+            responseMessage: {
+                english: "Take your time to decide. I'll be here whenever you're ready. I request you to keep everything between us. ",
+                hindi: "निर्णय लेने के लिए अपना समय लें। जब भी आप तैयार हों, मैं यहां रहूंगा।"
+            }
+        };
+        
+        // Translation toggle
+        const translateBtn = document.getElementById('translateBtn');
+        const englishMessage = document.getElementById('englishMessage');
+        const hindiMessage = document.getElementById('hindiMessage');
+        const headerText = document.getElementById('headerText');
+        const promiseText = document.getElementById('promiseText');
+        const nameText = document.getElementById('nameText');
+        const footerText = document.getElementById('footerText');
+        const responseMessage = document.getElementById('responseMessage');
+        
+        let currentLanguage = 'english';
+        
+        translateBtn.addEventListener('click', () => {
+            if (currentLanguage === 'english') {
+                // Switch to Hindi
+                englishMessage.classList.add('hidden');
+                hindiMessage.classList.remove('hidden');
+                headerText.textContent = translations.headerText.hindi;
+                promiseText.textContent = translations.promiseText.hindi;
+                nameText.textContent = translations.nameText.hindi;
+                footerText.textContent = translations.footerText.hindi;
+                
+                // Update response message if visible
+                if (!responseMessage.classList.contains('hidden')) {
+                    responseMessage.textContent = translations.responseMessage.hindi;
+                }
+                
+                currentLanguage = 'hindi';
+                translateBtn.title = "Translate to English";
+                translateBtn.innerHTML = '<i class="fas fa-language"></i>';
+            } else {
+                // Switch to English
+                englishMessage.classList.remove('hidden');
+                hindiMessage.classList.add('hidden');
+                headerText.textContent = translations.headerText.english;
+                promiseText.textContent = translations.promiseText.english;
+                nameText.textContent = translations.nameText.english;
+                footerText.textContent = translations.footerText.english;
+                
+                // Update response message if visible
+                if (!responseMessage.classList.contains('hidden')) {
+                    responseMessage.textContent = translations.responseMessage.english;
+                }
+                
+                currentLanguage = 'english';
+                translateBtn.title = "Translate to Hindi";
+                translateBtn.innerHTML = '<i class="fas fa-language"></i>';
+            }
+        });
+        
+        // Button actions
+        document.getElementById('promiseBtn').addEventListener('click', () => {
+            window.location.href = "hi.htm";
+        });
+        
+        document.getElementById('personalBtn').addEventListener('click', () => {
+            responseMessage.classList.remove('hidden');
+            responseMessage.textContent = currentLanguage === 'english' 
+                ? translations.responseMessage.english 
+                : translations.responseMessage.hindi;
+            
+            // Add animation effect
+            responseMessage.style.animation = 'none';
+            setTimeout(() => {
+                responseMessage.style.animation = 'fadeIn 0.8s ease-out';
+            }, 10);
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            
+            // Try to autoplay music
+            setTimeout(() => {
+                backgroundMusic.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(e => {
+                    console.log("Autoplay prevented:", e);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

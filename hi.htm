@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Special 🌹 </title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            color: #5a3e36;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.7);
+            font-size: 20px;
+            animation: float 15s linear infinite;
+            opacity: 0;
+            top: -50px;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #d46a6a;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            background: rgba(212, 106, 106, 0.85);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #d46a6a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .message-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .message-container::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(45deg, #ffc3a0, #ffafbd, #ffc3a0);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+        
+        .salutation {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #d46a6a;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(255, 182, 193, 0.3) 60%);
+            font-weight: 500;
+        }
+        
+        /* Social Media Section */
+        .social-section {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .social-title {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            color: #d46a6a;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .social-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d46a6a, transparent);
+        }
+        
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px 25px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #5a3e36;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+            color: white;
+        }
+        
+        .instagram .social-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .whatsapp .social-icon { background: #25D366; }
+        .facebook .social-icon { background: #1877F2; }
+        .website .social-icon { background: linear-gradient(45deg, #d46a6a, #ff8e8e); }
+        
+        .social-info {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .social-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        .social-handle {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #d46a6a;
+            font-style: italic;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .message-container {
+                padding: 25px;
+            }
+            
+            .salutation {
+                font-size: 1.3rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .social-title {
+                font-size: 1.6rem;
+            }
+            
+            .social-card {
+                padding: 12px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .message-container {
+                padding: 20px 15px;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+            }
+            
+            .social-title {
+                font-size: 1.4rem;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                margin-right: 15px;
+            }
+            
+            .social-name {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Hidden class for translation toggle */
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container">
+        <header>
+            <h1>You're Special 🌹 </h1>
+            <div class="controls">
+                <button id="musicBtn" class="btn">
+                    <i class="fas fa-play"></i>
+                    <span>Play Music</span>
+                </button>
+                <button id="translateBtn" class="btn">
+                    <i class="fas fa-language"></i>
+                    <span>Translate to Hindi</span>
+                </button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="message-container">
+                <div id="englishMessage">
+                    <div class="salutation" >Hi! Baskar 🌸 </div>
+                    <div class="message">
+                        <p class="highlight" >I hope this note finds you well.</p>
+                        <p> First, let me start by saying that I respect you and your family a lot, and I’ve admired you quietly for some time now.</p> <br>
+                        <p> I’ve written this letter because I’d like to get to know you better, and I feel this is the best way to reach out without causing any discomfort.</p> <br>
+                        <p>You already know me—I live nearby, and we’ve crossed paths a few times when I visited your shop. I often come to your shop, but I barely see you there. Though we’ve never had the chance to talk much, I think you’re someone truly special. Your kindness and presence have left an impression on me, and I wanted to take this small step to connect with you.</p> <br>
+                        <p class="highlight" >I understand that life can sometimes feel restrictive, especially when it comes to friendships and communication. I’ve noticed you don’t have personal social media or a phone of your own, and I completely respect that. If you’re open to it, I’d like to give you some ways to reach me if you ever want to talk or share something.
+You can send me a text or message anytime, I will not reply unless you ask me to. I have attached links to my Instagram, Whatsapp, Facebook and My Own website where my all the details are, do read that too.</p> <br>
+                        <p>If you decide to contact me through your mom’s phone, please feel free to delete the message afterward for your privacy. I want you to feel completely comfortable, and I assure you that I won’t reply unless you explicitly ask me to.</p> <br>
+                        <p  > <b>Please don’t tell or show anyone about this letter—not even your mom or sisters. I kindly request you to keep this between us.    Plzzzzzz🙏 </b> </p> <br>
+                        <p>This letter isn’t meant to pressure you in any way. I only want to create a safe and respectful way for us to connect if you’re okay with it. If you don’t feel comfortable reaching out, that’s perfectly fine too. I’ll respect your boundaries and won’t trouble you further.</p> <br>
+                        <p>Thank you for taking the time to read this. Whatever you decide, please know that I think highly of you and wish you nothing but happiness and success in everything you do.</p> <br>
+                        <p>Take care, and I hope to hear from you someday. 😊</p> <br>
+                        <p>Warm regards,</p>
+                        <p class="highlight"> ["A Neighbor"]</p> <br>
+                        <p> <img src="dlt1.png" height="360%" width="300px" > </p>
+                        
+                    
+                    </div>
+                </div>
+                
+                <div id="hindiMessage" class="hidden">
+                    <div class="salutation">Hi!  बस्कर </div>
+                    <div class="message">
+                        <p class="highlight" >मुझे उम्मीद है कि यह नोट आपको अच्छा लगेगा।</p>
+<p> सबसे पहले, मैं यह कहकर शुरुआत करना चाहता हूँ कि मैं आपका और आपके परिवार का बहुत सम्मान करता हूँ, और मैं पिछले कुछ समय से चुपचाप आपकी प्रशंसा करता रहा हूँ।</p> <br>
+<p> मैंने यह पत्र इसलिए लिखा है क्योंकि मैं आपको बेहतर तरीके से जानना चाहता हूँ, और मुझे लगता है कि बिना किसी परेशानी के आप तक पहुँचने का यह सबसे अच्छा तरीका है।</p> <br>
+<p>आप मुझे जानते होंगे - मैं पास में ही रहता हूँ, और जब मैं आपकी दुकान पर गया था, तो हम कई बार मिले थे। हालाँकि हमें कभी भी ज़्यादा बात करने का मौका नहीं मिला, लेकिन मुझे लगता है कि आप वाकई खास व्यक्ति हैं। आपकी दयालुता और उपस्थिति ने मुझ पर एक छाप छोड़ी है, और मैं आपसे जुड़ने के लिए यह छोटा सा कदम उठाना चाहता था।</p> <br>
+<p class="highlight" >मैं समझता हूँ कि जीवन कभी-कभी प्रतिबंधात्मक लग सकता है, खासकर जब दोस्ती और संचार की बात आती है। मैंने देखा है कि आपके पास निजी सोशल मीडिया या अपना फ़ोन नहीं है, और मैं इसका पूरा सम्मान करता हूँ। अगर आप इसके लिए तैयार हैं, तो मैं आपको कुछ ऐसे तरीके बताना चाहूँगा, जिससे आप कभी भी मुझसे बात कर सकें या कुछ साझा कर सकें।
+आप मुझे कभी भी टेक्स्ट या मैसेज भेज सकते हैं। मैंने अपने इंस्टाग्राम, व्हाट्सएप, फेसबुक और माई ओन वेबसाइट के लिंक संलग्न किए हैं, जहाँ मेरी सारी जानकारी है, उसे भी पढ़ें।</p> <br>
+<p>अगर आप अपनी माँ के फ़ोन के ज़रिए मुझसे संपर्क करने का फ़ैसला करते हैं, तो कृपया अपनी गोपनीयता के लिए बाद में संदेश को हटाने के लिए स्वतंत्र महसूस करें। मैं चाहता हूँ कि आप पूरी तरह से सहज महसूस करें, और मैं आपको आश्वासन देता हूँ कि जब तक आप मुझसे स्पष्ट रूप से नहीं कहेंगे, मैं जवाब नहीं दूँगा।</p> <br>
+<p> <b>कृपया इस पत्र के बारे में किसी को न बताएँ या न दिखाएँ—अपनी माँ या बहनों को भी नहीं। मैं आपसे विनम्र अनुरोध करता हूँ कि इसे हमारे बीच ही रहने दें।</b> </p> <br>
+<p>इस पत्र का उद्देश्य किसी भी तरह से आप पर दबाव डालना नहीं है। मैं सिर्फ़ हमारे लिए एक सुरक्षित और सम्मानजनक तरीका बनाना चाहता हूँ, अगर आपको इससे कोई परेशानी न हो। अगर आप संपर्क करने में सहज महसूस नहीं करते, तो भी कोई बात नहीं। मैं आपकी सीमाओं का सम्मान करूँगा और आपको और परेशान नहीं करूँगा।</p> <br>
+<p>इसे पढ़ने के लिए समय निकालने के लिए आपका धन्यवाद। आप जो भी निर्णय लें, कृपया जान लें कि मैं आपके बारे में बहुत सोचता हूँ और आपके हर काम में खुशी और सफलता की कामना करता हूँ।</p> <br>
+<p>अपना ख्याल रखना, और मुझे उम्मीद है कि किसी दिन आपसे बात करूँगा। 😊</p> <br>
+<p>हार्दिक शुभकामनाएँ,</p>
+<p class="highlight"> ["आपका पड़ोसी"]</p>
+                        
+                    
+                    
+                    
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Social Media Section -->
+            <div class="social-section">
+                <h2 class="social-title">My Social Media</h2>
+                <p style="color: #7a5a50; margin-bottom: 30px; font-style: italic;">
+                    For you to connect with me, if you feel that spark...
+                </p>
+                
+                <div class="social-container">
+                    <a href="https://www.instagram.com/devansh_raj_pushkar/" class="social-card instagram">
+                        <div class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="social-info">
+                            <div class="social-name">Instagram</div>
+                            <div class="social-handle">@Click_here_to_get_my_Instagram</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://wa.me/9027738276" class="social-card whatsapp">
+                        <div class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="social-info">
+                            <div class="social-name">WhatsApp</div>
+                            <div class="social-handle">+91 9027738XXX</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/rajatrajpushkar.mr.r" class="social-card facebook">
+                        <div class="social-icon">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <div class="social-info">
+                            <div class="social-name">Facebook</div>
+                            <div class="social-handle">@Just_click</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://devanshrajpushkar.github.io/Tripod/" class="social-card website">
+                        <div class="social-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="social-info">
+                            <div class="social-name">My OWN Website</div>
+                            <div class="social-handle"> This is me, click here to see me. </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>This page was created with admiration and care especially for you, Baskar😇. </p>
+        </footer>
+    </div>
+    
+    <!-- Background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="2.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                const opacity = Math.random() * 0.5 + 0.3;
+                
+                heart.style.left = `${left}%`;
+                heart.style.fontSize = `${size}px`;
+                heart.style.animationDuration = `${animationDuration}s`;
+                heart.style.animationDelay = `${animationDelay}s`;
+                heart.style.opacity = opacity;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Music control
+        const musicBtn = document.getElementById('musicBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-play"></i><span>Play Music</span>';
+            } else {
+                backgroundMusic.play().catch(e => {
+                    console.log("Audio play failed:", e);
+                    // Show alert for user interaction requirement
+                    alert("Please click 'OK' to allow audio playback. Some browsers require user interaction for audio to play.");
+                });
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i><span>Pause Music</span>';
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // Translation toggle
+        const translateBtn = document.getElementById('translateBtn');
+        const englishMessage = document.getElementById('englishMessage');
+        const hindiMessage = document.getElementById('hindiMessage');
+        
+        translateBtn.addEventListener('click', () => {
+            if (englishMessage.classList.contains('hidden')) {
+                englishMessage.classList.remove('hidden');
+                hindiMessage.classList.add('hidden');
+                translateBtn.innerHTML = '<i class="fas fa-language"></i><span>Translate to Hindi</span>';
+            } else {
+                englishMessage.classList.add('hidden');
+                hindiMessage.classList.remove('hidden');
+                translateBtn.innerHTML = '<i class="fas fa-language"></i><span>Translate to English</span>';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            
+            // Try to autoplay music (may not work in all browsers without user interaction)
+            setTimeout(() => {
+                backgroundMusic.play().then(() => {
+                    isPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i><span>Pause Music</span>';
+                }).catch(e => {
+                    console.log("Autoplay prevented:", e);
+                    // If autoplay fails, we'll just leave the button as "Play Music"
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
