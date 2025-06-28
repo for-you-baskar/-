@@ -339,9 +339,171 @@
         .hidden {
             display: none;
         }
+        
+        /* NEW: Fixed Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .popup-container {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            border-radius: 20px;
+            max-width: 90%;
+            width: 500px;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(212, 106, 106, 0.4);
+            position: relative;
+            border: 3px solid #d46a6a;
+            animation: pulseBorder 2s infinite;
+        }
+        
+        @keyframes pulseBorder {
+            0% { border-color: #d46a6a; }
+            50% { border-color: #ffafbd; }
+            100% { border-color: #d46a6a; }
+        }
+        
+        .popup-content {
+            text-align: center;
+            color: #5a3e36;
+        }
+        
+        .popup-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #d46a6a;
+            margin-bottom: 20px;
+        }
+        
+        .popup-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .popup-content .highlight {
+            background: linear-gradient(transparent 60%, rgba(255, 182, 193, 0.3) 60%);
+            font-weight: 500;
+            padding: 0 5px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: #d46a6a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: #c55a5a;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup-btn {
+            height: 55px;
+            background: linear-gradient(45deg, #d46a6a, #e68a8a);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(212, 106, 106, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .popup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 106, 106, 0.4);
+        }
+        
+        /* Responsive adjustments for popup */
+        @media (max-width: 768px) {
+            .popup-container {
+                padding: 25px 20px;
+            }
+            
+            .popup-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .popup-content p {
+                font-size: 1rem;
+            }
+            
+            .popup-btn {
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .popup-content h2 {
+                font-size: 2rem;
+            }
+            
+            .popup-container {
+                padding: 20px 15px;
+            }
+            
+            .close-btn {
+                top: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <div class="close-btn" id="closePopup">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="popup-content">
+                <h2><i class="fas fa-lock"></i> Personal Message</h2>
+                <p>Dear <span class="highlight">Baskar</span>,</p>
+                <p>This website contains a <span class="highlight">special message</span> meant only for you. I request that you keep its contents private and not share it with anyone else.</p>
+                <p>Please enjoy this experience in a <span class="highlight">quiet, personal space</span> where you can fully appreciate what I've prepared.</p>
+                <button class="popup-btn" id="acceptBtn">
+                    <i class="fas fa-heart"></i> I Understand & Accept
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Floating hearts background -->
     <div class="hearts-container" id="heartsContainer"></div>
     
@@ -401,6 +563,41 @@
     </audio>
     
     <script>
+        // ===== POPUP FUNCTIONALITY =====
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closePopup = document.getElementById('closePopup');
+        const acceptBtn = document.getElementById('acceptBtn');
+        
+        // Show popup on page load
+        popupOverlay.style.display = 'flex';
+        
+        // Close popup when clicking close button
+        closePopup.addEventListener('click', () => {
+            popupOverlay.style.opacity = '0';
+            setTimeout(() => {
+                popupOverlay.style.display = 'none';
+            }, 500);
+        });
+        
+        // Close popup when clicking accept button
+        acceptBtn.addEventListener('click', () => {
+            popupOverlay.style.opacity = '0';
+            setTimeout(() => {
+                popupOverlay.style.display = 'none';
+            }, 500);
+        });
+        
+        // Close popup when clicking outside the popup content
+        popupOverlay.addEventListener('click', (e) => {
+            if (e.target === popupOverlay) {
+                popupOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    popupOverlay.style.display = 'none';
+                }, 500);
+            }
+        });
+        
+        // ===== EXISTING FUNCTIONALITY =====
         // Create floating hearts
         function createHearts() {
             const heartsContainer = document.getElementById('heartsContainer');
@@ -543,7 +740,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             createHearts();
             
-            // Try to autoplay music
+            // Try to autoplay music after popup is closed
             setTimeout(() => {
                 backgroundMusic.play().then(() => {
                     isPlaying = true;
